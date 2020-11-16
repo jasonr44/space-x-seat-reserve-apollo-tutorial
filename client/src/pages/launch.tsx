@@ -25,10 +25,16 @@ interface LaunchProps extends RouteComponentProps {
 }
 
 const Launch: React.FC<LaunchProps> = ({ launchId }) => {
-  const { data, loading, error } = useQuery<
+  const {
+    data,
+    loading,
+    error,
+  } = useQuery<
     LaunchDetailsTypes.LaunchDetails,
     LaunchDetailsTypes.LaunchDetailsVariables
-  >(GET_LAUNCH_DETAILS, { variables: { launchId } });
+  >(GET_LAUNCH_DETAILS,
+    { variables: { launchId } }
+  );
 
   if (loading) return <Loading />;
   if (error) return <p>ERROR: {error.message}</p>;
@@ -36,17 +42,13 @@ const Launch: React.FC<LaunchProps> = ({ launchId }) => {
 
   return (
     <Fragment>
-      <Header
-        image={
-          data.launch && data.launch.mission && data.launch.mission.missionPatch
-        }
-      >
+      <Header image={data.launch && data.launch.mission && data.launch.mission.missionPatch}>
         {data && data.launch && data.launch.mission && data.launch.mission.name}
       </Header>
       <LaunchDetail {...data.launch} />
       <ActionButton {...data.launch} />
     </Fragment>
   );
-};
+}
 
 export default Launch;
