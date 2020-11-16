@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { ApolloServer } = require('apollo-server');
 const typeDefs = require('./schema');
 const { createStore } = require('./utils');
@@ -29,6 +30,7 @@ const server = new ApolloServer({
 });
 
 server.listen().then(({ url }) => {
+  console.log(process.env.APOLLO_KEY);
   console.log(`🚀 Server ready at ${url}`);
 });
 
